@@ -1,0 +1,37 @@
+﻿@{
+    Layout = null;
+}
+@* 导入命名空间 *@
+@using MVC体验.Models
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    @this.GetType().Assembly.Location
+    <br />
+    <div>
+        <hr />
+        ViewData["Name"] =@ViewData["Name"]
+        <br />
+        <hr />
+        ViewBag.Age =@ViewBag.Age
+        <br />
+         ViewBag.Name =@ViewBag.Name
+        <hr />
+        <br />
+        TempData["isKill"] =@TempData["isKill"]
+        <hr />
+        <br />
+        @{
+            Pig pig = Model as Pig;            
+        }
+        猪名称=@pig.Name<br />
+        猪年龄=@pig.Age
+    </div>
+</body>
+</html>
