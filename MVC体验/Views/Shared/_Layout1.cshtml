@@ -4,22 +4,20 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
-    @Styles.Render("~/Content/css")  @*将具体的css以虚拟路径的形式输出到html中同时会压缩css文件*@
-    @RenderSection("css", required: false)
+    @Styles.Render("~/Content/css")  @*将具体的css以虚拟路径的形式输出到html中*@
     <style type="text/css">
         .left {
             width: 200px;
             float: left;
-            border: 1px solid red;
+            border: 2px solid red;
         }
 
         .right {
             width: 550px;
             float: right;
-            border: 1px solid green;
+            border: 2px solid green;
         }
     </style>
-
 </head>
 <body>
     <div style="width: 800px; margin: 0 auto;">
@@ -37,12 +35,8 @@
 
         </div>
     </div>
-    @Scripts.Render("~/bundles/jquery")  @*将具体的js以虚拟路径的形式输出到html中, 同时会压缩js文件 *@
+    @Scripts.Render("~/bundles/jquery")  @*将具体的js以虚拟路径的形式输出到html中*@
 
-    @*required: false 可以被子页重写的区域或不重写都正常，
-        required: true:在子页中必须重写 scripts111
-    *@
-
-    @RenderSection("scripts111", required: false)
+    @RenderSection("scripts", required: false) @*可以被子页重写的区域*@
 </body>
 </html>

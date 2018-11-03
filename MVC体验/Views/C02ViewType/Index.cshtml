@@ -1,0 +1,30 @@
+﻿@{
+    Layout = null;
+}
+@using MVC体验.Models
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div>
+
+        @this.GetType().Assembly.Location
+        <br />
+
+        @{
+            Pig pig = Model as Pig;
+
+            if (pig != null)
+            {
+                <text>pig.Name = </text> @pig.Name
+                @:pig.Age= @pig.Age
+            }
+        }
+    </div>
+</body>
+</html>

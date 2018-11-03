@@ -122,8 +122,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\C01PamrsController.cs" />
-    <Compile Include="Controllers\GroupInfoController.cs" />
+    <Compile Include="Controllers\C01\C01PamrsController.cs" />
+    <Compile Include="Controllers\C02\C02ActionResultSubClassController.cs" />
+    <Compile Include="Controllers\C01\GroupInfoController.cs" />
+    <Compile Include="Controllers\C02\C02GetPostPamrsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -216,6 +218,8 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\GroupInfo\IndexView1.cshtml" />
     <Content Include="Views\C01Pamrs\Index.cshtml" />
+    <Content Include="Views\C02ActionResultSubClass\ViewResultDemo.cshtml" />
+    <Content Include="Views\C02GetPostPamrs\PostParmsView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

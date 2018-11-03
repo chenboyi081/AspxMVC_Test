@@ -1,0 +1,23 @@
+﻿@{
+    Layout = null;
+}
+@* 将当前视图指定为强类型视图 *@
+@model MVC体验.Models.Pig
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index1</title>
+</head>
+<body>
+    <div>
+        @this.GetType().Assembly.Location
+        <br />
+        @{
+            <text>猪名称=</text> @Model.Name
+        }
+    </div>
+</body>
+</html>
