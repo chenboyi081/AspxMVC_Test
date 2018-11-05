@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="phonebookModelStoreContainer" CdmEntityContainer="phonebookEntities">
+    <EntitySetMapping Name="ContactInfoes">
+      <EntityTypeMapping TypeName="phonebookModel.ContactInfo">
+        <MappingFragment StoreEntitySet="ContactInfo">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ContactId" ColumnName="ContactId" />
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+          <ScalarProperty Name="Account" ColumnName="Account" />
+          <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+          <ScalarProperty Name="CommonMobile" ColumnName="CommonMobile" />
+          <ScalarProperty Name="HeadPortrait" ColumnName="HeadPortrait" />
+          <ScalarProperty Name="AttFile" ColumnName="AttFile" />
+          <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GroupInfoes">
+      <EntityTypeMapping TypeName="phonebookModel.GroupInfo">
+        <MappingFragment StoreEntitySet="GroupInfo">
+          <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+          <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

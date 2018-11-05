@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="phonebookModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="ContactInfo">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ContactId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IsDelete" Type="Int32" Nullable="false" />
+    <Property Name="Account" Type="String" MaxLength="64" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ContactName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CommonMobile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="HeadPortrait" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="AttFile" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="GroupId" Type="Int32" />
+    <NavigationProperty Name="GroupInfo" Relationship="Self.FK_ContactInfo_GroupInfo" FromRole="ContactInfo" ToRole="GroupInfo" />
+  </EntityType>
+  <EntityType Name="GroupInfo">
+    <Key>
+      <PropertyRef Name="GroupId" />
+    </Key>
+    <Property Name="GroupId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="GroupName" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="ContactInfoes" Relationship="Self.FK_ContactInfo_GroupInfo" FromRole="GroupInfo" ToRole="ContactInfo" />
+  </EntityType>
+  <Association Name="FK_ContactInfo_GroupInfo">
+    <End Role="GroupInfo" Type="Self.GroupInfo" Multiplicity="0..1" />
+    <End Role="ContactInfo" Type="Self.ContactInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GroupInfo">
+        <PropertyRef Name="GroupId" />
+      </Principal>
+      <Dependent Role="ContactInfo">
+        <PropertyRef Name="GroupId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="phonebookEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="ContactInfoes" EntityType="Self.ContactInfo" />
+    <EntitySet Name="GroupInfoes" EntityType="Self.GroupInfo" />
+    <AssociationSet Name="FK_ContactInfo_GroupInfo" Association="Self.FK_ContactInfo_GroupInfo">
+      <End Role="GroupInfo" EntitySet="GroupInfoes" />
+      <End Role="ContactInfo" EntitySet="ContactInfoes" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

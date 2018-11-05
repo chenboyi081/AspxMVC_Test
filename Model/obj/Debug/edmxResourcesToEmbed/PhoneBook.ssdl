@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="phonebookModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="ContactInfo">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ContactId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="IsDelete" Type="int" Nullable="false" />
+    <Property Name="Account" Type="nvarchar" MaxLength="64" Nullable="false" />
+    <Property Name="ContactName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="CommonMobile" Type="nvarchar" MaxLength="50" />
+    <Property Name="HeadPortrait" Type="nvarchar" MaxLength="256" />
+    <Property Name="AttFile" Type="nvarchar" MaxLength="256" />
+    <Property Name="GroupId" Type="int" />
+  </EntityType>
+  <EntityType Name="GroupInfo">
+    <Key>
+      <PropertyRef Name="GroupId" />
+    </Key>
+    <Property Name="GroupId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GroupName" Type="nvarchar" MaxLength="300" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_ContactInfo_GroupInfo">
+    <End Role="GroupInfo" Type="Self.GroupInfo" Multiplicity="0..1" />
+    <End Role="ContactInfo" Type="Self.ContactInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GroupInfo">
+        <PropertyRef Name="GroupId" />
+      </Principal>
+      <Dependent Role="ContactInfo">
+        <PropertyRef Name="GroupId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="phonebookModelStoreContainer">
+    <EntitySet Name="ContactInfo" EntityType="Self.ContactInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GroupInfo" EntityType="Self.GroupInfo" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_ContactInfo_GroupInfo" Association="Self.FK_ContactInfo_GroupInfo">
+      <End Role="GroupInfo" EntitySet="GroupInfo" />
+      <End Role="ContactInfo" EntitySet="ContactInfo" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

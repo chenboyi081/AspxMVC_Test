@@ -126,13 +126,24 @@
     <Compile Include="Controllers\C02\C02ActionResultSubClassController.cs" />
     <Compile Include="Controllers\C01\GroupInfoController.cs" />
     <Compile Include="Controllers\C02\C02GetPostPamrsController.cs" />
+    <Compile Include="Controllers\C02\C02LayoutDemoController.cs" />
+    <Compile Include="Controllers\C02\C02RazorController.cs" />
+    <Compile Include="Controllers\C02\C02SessionController.cs" />
+    <Compile Include="Controllers\C02\C02TargetViewController.cs" />
+    <Compile Include="Controllers\C02\C02ViewTypeController.cs" />
+    <Compile Include="Controllers\C03\C031PatrialViewController.cs" />
+    <Compile Include="Controllers\C03\C032ZJController.cs" />
+    <Compile Include="Controllers\C03\CInfoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Person.cs" />
     <Compile Include="Models\Pig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\css.css" />
+    <Content Include="Content\phonebook.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -220,12 +231,31 @@
     <Content Include="Views\C01Pamrs\Index.cshtml" />
     <Content Include="Views\C02ActionResultSubClass\ViewResultDemo.cshtml" />
     <Content Include="Views\C02GetPostPamrs\PostParmsView.cshtml" />
+    <Content Include="Views\C02Session\Index.cshtml" />
+    <Content Include="Views\C02TargetView\Index.cshtml" />
+    <Content Include="Views\C02ViewType\Index.cshtml" />
+    <Content Include="Views\C02ViewType\Index1.cshtml" />
+    <Content Include="Views\C02LayoutDemo\Index.cshtml" />
+    <Content Include="Views\Shared\_Layout1.cshtml" />
+    <Content Include="Views\C031PatrialView\Index.cshtml" />
+    <Content Include="Views\C031PatrialView\CallPartialView.cshtml" />
+    <Content Include="Views\C032ZJ\Add.cshtml" />
+    <Content Include="Views\Shared\_phonebookLayout.cshtml" />
+    <Content Include="Views\CInfo\Index.cshtml" />
+    <Content Include="Views\CInfo\Edit.cshtml" />
+    <Content Include="Views\CInfo\Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Model\Model.csproj">
+      <Project>{e87a0b78-0b5f-4aac-8d82-5d5e81c3f24e}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

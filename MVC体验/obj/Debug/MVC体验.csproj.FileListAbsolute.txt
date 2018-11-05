@@ -69,6 +69,8 @@ C:\Code\MVC体验\MVC体验\bin\zh-Hans\System.Web.Razor.resources.dll
 C:\Code\MVC体验\MVC体验\bin\zh-Hans\System.Web.WebPages.resources.dll
 C:\Code\MVC体验\MVC体验\bin\zh-Hans\System.Web.WebPages.Deployment.resources.dll
 C:\Code\MVC体验\MVC体验\bin\zh-Hans\System.Web.WebPages.Razor.resources.dll
-C:\Code\MVC体验\MVC体验\obj\Debug\MVC体验.csprojResolveAssemblyReference.cache
 C:\Code\MVC体验\MVC体验\obj\Debug\MVC体验.dll
 C:\Code\MVC体验\MVC体验\obj\Debug\MVC体验.pdb
+C:\Code\MVC体验\MVC体验\obj\Debug\MVC体验.csprojResolveAssemblyReference.cache
+C:\Code\MVC体验\MVC体验\bin\MVC.Model.dll
+C:\Code\MVC体验\MVC体验\bin\MVC.Model.pdb
