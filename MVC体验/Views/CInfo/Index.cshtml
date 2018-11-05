@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_phonebookLayout.cshtml";
+}
+
+@model List<MVC.Model.ContactInfo>
+@using MVC.Model
+
+<table class="list">
+    <tr>
+        <td colspan="5">
+            <input type="button" value="新增" onclick="window.location = '/CInfo/Add'" />
+        </td>
+    </tr>
+    <tr>
+        <th>编号</th>
+        <th>名称</th>
+        <th>电话</th>
+        <th>所属分组</th>
+        <th>操作</th>
+    </tr>
+    @if (Model != null && Model.Any())
+    {
+        foreach (ContactInfo item in Model)
+        {
+            <tr>
+                <td>@item.ID</td>
+                <td>@item.ContactName</td>
+                <td>@item.CommonMobile</td>
+                <td>@item.GroupInfo.GroupName</td>
+                <td>
+                    <a href="/CInfo/Edit/@item.ID">编辑</a> |
+                    <a href="javascript:void(0)" onclick="del(@item.ID)">删除</a>
+                </td>
+            </tr>
+        }
+    }
+
+</table>
+
+@section scripts{
+    <script type="text/javascript">
+        function del(id) {
+            if (confirm("确定删除数据吗?")) {
+                window.location = '/CInfo/Delete/' + id; //1,2,3
+            }
+        }
+    </script>
+}

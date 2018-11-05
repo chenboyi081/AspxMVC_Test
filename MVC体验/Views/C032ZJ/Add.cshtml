@@ -1,0 +1,44 @@
+﻿@model MVC体验.Models.Person
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Add</title>
+    <script src="~/Scripts/jquery-1.7.1.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+</head>
+<body>
+    <div>
+        <form action="/" method="post">
+            @Html.DisplayNameFor(c => c.Name):
+            @*<input type="text" name="Name" value="@Model.Name" /><br />*@
+            @Html.TextBoxFor(c => c.Name)
+            @Html.ValidationMessageFor(c => c.Name)
+            <br />
+            @Html.DisplayNameFor(c => c.Age):
+            @Html.TextBoxFor(c =>c.Age)
+            @Html.ValidationMessageFor(c =>c.Age)
+            <br />
+            @Html.DisplayNameFor(c => c.Pwd):
+            @Html.PasswordFor(c =>c.Pwd)<br />
+
+            @Html.DisplayNameFor(c => c.ConfrimPwd):
+            @Html.PasswordFor(c =>c.ConfrimPwd)
+            @Html.ValidationMessageFor(c =>c.ConfrimPwd)
+            <br />
+            @Html.DisplayNameFor(c => c.Email):
+            @Html.TextBoxFor(c => c.Email)
+            @Html.ValidationMessageFor(c => c.Email)
+            <br />
+            <input type="submit" value="提交" />
+        </form>
+    </div>
+</body>
+</html>

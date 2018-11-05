@@ -43,6 +43,9 @@ MVC基础学习，复习（本教程为MVC4.0）
         <br />
 		3.0 通过view 调用 action再由action返回一个视图 ，将视图内容输出在调用视图的指定位置
 ### C03-Model(模型 注解)	
+	注意点：
+	 所有验证的元素必须放到 <form>表单中，并且是通过 submit按钮来提交
+	 确认MVC网站中 的web.config中的 <add key="ClientValidationEnabled" value="true" /> value值为true
 	1、DisplayName(“程序员自定义文字”)配合 @Html.EditorForModel()，  @Html.DisplayNameFor()， @Html.LabelFor()
         @Html.ValidationMessageFor()
         @Html.DisplayNameForModel()
@@ -59,16 +62,10 @@ MVC基础学习，复习（本教程为MVC4.0）
 			jquery form表单元素数据合法性检查的插件的非侵入式脚本
 			<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
 	3、利用@Html.TextBoxFor()方法生成的元素要放到form表单中
-
-	4、确认MVC网站中 的web.config中的 <add key="ClientValidationEnabled" value="true" /> value值为true
-
-	5、注意点：
-	 所有验证的元素必须放到 <form>表单中，并且是通过 submit按钮来提交
-
-	6、[Range(1, 100, ErrorMessage = "id只能取1-100范围中的值")] ：进行范围限制
-	7、[RegularExpression("^[\\u4E00-\\u9FA5\\uF900-\\uFA2D]+$",ErrorMessage="名称只能输入中文")]利用正则表达式来检查元素的值是否满足要求
-	8、System.ComponentModel.DataAnnotations.Compare （）标示当前属性和程序员指定的另外一个属性的值要保持一致
-	9、[Remote("checkId", "Home", ErrorMessage = "当前id已经被使用，请换一个", HttpMethod="post")] 
+	4、[Range(1, 100, ErrorMessage = "id只能取1-100范围中的值")] ：进行范围限制
+	5、[RegularExpression("^[\\u4E00-\\u9FA5\\uF900-\\uFA2D]+$",ErrorMessage="名称只能输入中文")]利用正则表达式来检查元素的值是否满足要求
+	6、System.ComponentModel.DataAnnotations.Compare （）标示当前属性和程序员指定的另外一个属性的值要保持一致
+	7、[Remote("checkId", "Home", ErrorMessage = "当前id已经被使用，请换一个", HttpMethod="post")] 
 	  Remote发出一个post的ajax请求 /Home/checkid 如果id存在则返回 “false” 不存在则返回 "true"
-	10、 [DisplayName("xxx")]：标示一个属性的显示值 ，能够被 @Html.EditorForModel()，  @Html.DisplayNameFor()， @Html.LabelFor()解析出来
+	8、 [DisplayName("xxx")]：标示一个属性的显示值 ，能够被 @Html.EditorForModel()，  @Html.DisplayNameFor()， @Html.LabelFor()解析出来
 		

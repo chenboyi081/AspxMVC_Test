@@ -1,0 +1,13 @@
+﻿@model MVC体验.Models.Pig
+
+<div>
+    这是分部视图的内容<br />
+    @if (Model == null)
+    {
+        @:Model为空
+    }
+    else
+    {
+        @:Model.Name = @Model.Name;
+    }
+</div>

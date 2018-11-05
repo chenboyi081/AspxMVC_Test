@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Title = "Add";
+    Layout = "~/Views/Shared/_phonebookLayout.cshtml";
+}
+
+@using MVC.Model
+<form method="post">
+    <table class="list">
+        <tr>
+            <th>名称</th>
+            <td>
+                <input type="text" name="ContactName" />
+            </td>
+        </tr>
+        <tr>
+            <th>电话</th>
+            <td>
+                <input type="text" name="CommonMobile" />
+            </td>
+        </tr>
+        <tr>
+            <th>所属分组</th>
+            <td>
+                <select name="GroupId">
+                    @{
+                        var glist = ViewBag.glist as List<GroupInfo>;
+
+                        if (glist != null && glist.Any())
+                        {
+                            foreach (var item in glist)
+                            {
+                                <option value="@item.GroupId">@item.GroupName</option>
+                            }
+                        }
+                    }
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th></th>
+            <td>
+                <input type="submit" value="提交" />
+                <input type="button" value="返回列表" onclick="window.Location = '/CInfo/Index'" />
+            </td>
+        </tr>
+    </table>
+</form>

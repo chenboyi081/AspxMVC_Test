@@ -1,0 +1,58 @@
+﻿@model MVC.Model.ContactInfo
+@using MVC.Model
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_phonebookLayout.cshtml";
+}
+<form  method="post">
+    <table class="list">
+        <tr>
+            <th>名称</th>
+            <td>
+                <input type="text" name="ContactName" value="@Model.ContactName" />
+            </td>
+        </tr>
+        <tr>
+            <th>电话</th>
+            <td>
+                @Html.TextBoxFor(c => c.CommonMobile)
+                @*<input type="text" name="CommonMobile" value="@Model.CommonMobile" />*@
+            </td>
+        </tr>
+        <tr>
+            <th>所属分组</th>
+            <td>
+                <select name="GroupId">
+                    @{
+                        var glist = ViewBag.glist as List<GroupInfo>;
+
+                        if (glist != null && glist.Any())
+                        {
+                            foreach (var item in glist)
+                            {
+                                if (Model.GroupId == item.GroupId)
+                                {
+                                    <option value="@item.GroupId" selected="selected">@item.GroupName</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.GroupId">@item.GroupName</option>
+                                }
+                            }
+                        }
+                    }
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th></th>
+            <td>
+                <input type="submit" value="提交" />
+                <input type="button" value="返回列表" onclick="window.Location = '/CInfo/Index'" />
+            </td>
+        </tr>
+    </table>
+
+</form>
+
+

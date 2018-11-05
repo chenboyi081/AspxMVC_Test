@@ -1,0 +1,42 @@
+﻿@{
+    Layout = null;
+}
+@using MVC体验.Models
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CallPartialView</title>
+    <script src="~/Scripts/jquery-1.7.1.js"></script>
+</head>
+<body>
+    <div>
+        1.0 调用分部视图的写法1 Partial() ((最多))
+        @Html.Partial("Index", new Pig() { Name = "a" })  //相当于asp.net中的Server.Execute("index.aspx") 页面包含
+
+        <br />
+        2.0 利用Html.RenderPartial()
+        @{Html.RenderPartial("Index");}//相当于asp.net中的Server.Execute("index.aspx") 页面包含
+
+        <br />
+        3.0 利用RenderAction（）发起一个控制器中的index方法的请求，
+        // /C031PatrialView/Index/100
+        @{Html.RenderAction("Index", new { controller = "C031PatrialView", id = 100 });}//相当于asp.net中的Server.Execute("index.aspx") 页面包含
+
+        <br />
+        4.0 发起一个控制器中的index方法的请求
+        @Html.Action("Index")  //相当于asp.net中的Server.Execute("index.aspx") 页面包含
+
+        <br />
+        5.0 利用jquery的ajax方法发起请求(最多)
+        <script type="text/javascript">
+            $(function () {
+                //利用ajax请求分部视图的内容
+                $("#div1").load("/C031PatrialView/Index");
+            })
+        </script>
+        <div id="div1" style="border: 2px solid red"></div>
+    </div>
+</body>
+</html>
