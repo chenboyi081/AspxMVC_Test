@@ -70,12 +70,12 @@ MVC基础学习，复习（本教程为MVC4.0）
 	8、 [DisplayName("xxx")]：标示一个属性的显示值 ，能够被 @Html.EditorForModel()，  @Html.DisplayNameFor()， @Html.LabelFor()解析出来
 
 ## C04-MVC第二套增删改查(使用HtmlHelper，模型注释)	MVC第二套删查(使用Ajax，jquery【jquery.tmpl.js】),HtmlHelper的使用,Url的使用，Ajax
-	### C04-图:MVC_整体请求流程图完整版
+### C04-图:MVC_整体请求流程图完整版
 	![1](http://images.cnblogs.com/cnblogs_com/chenboyi081/1328731/o_01-MVC_%E6%95%B4%E4%BD%93%E8%AF%B7%E6%B1%82%E6%B5%81%E7%A8%8B%E5%9B%BE%E5%AE%8C%E6%95%B4%E7%89%88.png)
-	### C04-图:MVC中ajax方法的封装以及ajax的写法形式种类
+### C04-图:MVC中ajax方法的封装以及ajax的写法形式种类
 	![2](http://images.cnblogs.com/cnblogs_com/chenboyi081/1328731/o_03%20-%20MVC%E4%B8%ADajax%E6%96%B9%E6%B3%95%E7%9A%84%E5%B0%81%E8%A3%85%E4%BB%A5%E5%8F%8Aajax%E7%9A%84%E5%86%99%E6%B3%95%E5%BD%A2%E5%BC%8F%E7%A7%8D%E7%B1%BB.png)
 	
-	### 一、Html中的扩展方法演示
+### 一、Html中的扩展方法演示
 		//1.0 输出form表单的方式1 (html中的弱类型方法)
 		@{Html.BeginForm("Edit", "C03HtmlHelper", FormMethod.Post);}
         @Html.TextBox("Name", Model.Name) @* <input type="text" name="Name" id="Name" value="小黄" />*@
@@ -99,7 +99,7 @@ MVC基础学习，复习（本教程为MVC4.0）
             @Html.ValidationMessageFor(c=>c.TypeID)
         }
 		
-	### 二、实现第2套增删查改
+### 二、实现第2套增删查改
 	MVC razor 视图页面生成模板的路径：
 	C:\Program Files\Microsoft Visual Studio 11.0\Common7\IDE\ItemTemplates\CSharp\Web\MVC 4\CodeTemplates\AddView\CSHTML
 	涉及知识点：
@@ -108,12 +108,12 @@ MVC基础学习，复习（本教程为MVC4.0）
 	3、@Html中相关扩张方法
 	4、EF
 	
-	### 三、Url中的方法演示
-	### 四、Ajax的方法演示
+### 三、Url中的方法演示
+### 四、Ajax的方法演示
 		web.config中的<add key="UnobtrusiveJavaScriptEnabled" value="true" />
 		配置，如果设置成true:则开启ajax和前端表单的元素合法性验证这两个非嵌入（非侵入）式脚本
 		如果设置成false:则关闭ajax和前端表单的元素合法性验证这两个非嵌入（非侵入）式脚本
-	### 五、实现第3套增，删，查，改	
+### 五、实现第3套增，删，查，改	
 		1、@Html中的相关扩展方法
 		2、@Ajax的相关扩展方法
 		3、非嵌入式验证脚本的使用
