@@ -1,0 +1,30 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div>
+        <a href="/C032ZJ/Index">跳转</a><br />
+        <a href="@Url.Action("Index", "C032ZJ")">跳转</a>
+        <br />
+
+        <a href="@Url.RouteUrl("Default1", new { controller = "C032ZJ", action = "index", id = 100, name = "abc" })">跳转</a>
+        <br />
+        @{
+
+            string urledcode = Url.Encode("http://www.baidu.com?name=八戒");
+            @:urledcode=    @urledcode;
+            <br />
+            string normalUrl = Server.UrlDecode(urledcode);
+            @:normalUrl=@normalUrl;
+        }
+    </div>
+</body>
+</html>

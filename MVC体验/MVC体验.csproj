@@ -134,9 +134,13 @@
     <Compile Include="Controllers\C03\C031PatrialViewController.cs" />
     <Compile Include="Controllers\C03\C032ZJController.cs" />
     <Compile Include="Controllers\C03\CInfoController.cs" />
+    <Compile Include="Controllers\C04\C041HtmlHelperController.cs" />
+    <Compile Include="Controllers\C04\C043AjaxController.cs" />
+    <Compile Include="Controllers\C04\UrlHelperController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Dog.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Models\Pig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -216,7 +220,9 @@
     <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -244,6 +250,9 @@
     <Content Include="Views\CInfo\Index.cshtml" />
     <Content Include="Views\CInfo\Edit.cshtml" />
     <Content Include="Views\CInfo\Add.cshtml" />
+    <Content Include="Views\C041HtmlHelper\Edit.cshtml" />
+    <Content Include="Views\UrlHelper\Index.cshtml" />
+    <Content Include="Views\C043Ajax\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

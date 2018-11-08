@@ -1,0 +1,41 @@
+﻿@model IEnumerable<MVC.Model.ContactInfoView>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table class="list">
+    <tr>
+        <th>@Html.DisplayNameFor(c => c.ID)</th>
+        <th>@Html.DisplayNameFor(c => c.ContactName)</th>
+        <th>@Html.DisplayNameFor(c => c.CommonMobile)</th>
+        <th>@Html.DisplayNameFor(c => c.GroupId)</th>
+        <th></th>
+    </tr>
+    @if (Model != null && Model.Any())
+    {
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ID</td>
+                <td>@item.ContactName</td>
+                <td>@item.CommonMobile</td>
+                <td>@item.GroupInfo.GroupName</td>
+                <td>
+                    @*<a href="/cinfo/edit/@item.ID">编辑</a>*@
+                    @Html.ActionLink("编辑", "Edit", new { controller = "cinfo", id = item.ID }) |
+                    @Html.ActionLink("删除", "Delete", "cinfo", new { onclick = "del(" + item.ID + ")" })
+                </td>
+            </tr>
+        }
+    }
+
+</table>
+@section scripts{
+    <script type="text/javascript">
+        function del(id) {
+
+        }
+    </script>
+}

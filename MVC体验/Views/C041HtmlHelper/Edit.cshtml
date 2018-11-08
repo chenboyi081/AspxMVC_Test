@@ -1,0 +1,44 @@
+﻿@model MVC体验.Models.Dog
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit</title>
+</head>
+<body>
+    <div>
+        //1.0 输出form表单的方式1 (html中的弱类型方法)
+        @*   <form action="" method="">*@
+        @{Html.BeginForm("Edit", "C041HtmlHelper", FormMethod.Post);}
+
+        @Html.TextBox("Name", Model.Name) @* <input type="text" name="Name" id="Name" value="小黄" />*@
+        @Html.Password("Name1", Model.Name)<br />
+        @Html.CheckBox("Gender", Model.Gender)<br />
+        @Html.RadioButton("Gender", true, Model.Gender)
+        @Html.RadioButton("Gender", false, !Model.Gender)<br />
+        @Html.DropDownList("Type", ViewBag.tlist as SelectList)<br />
+        @Html.ActionLink("跳转", "Index", "C041HtmlHelper")   负责生成a标签
+
+        @{Html.EndForm();}
+
+        <br />
+        //2.0 输出form表单的方式2 (强类型方法的演示,后面的编辑和新增都使用强类型方法来进行操作)
+        @using (Html.BeginForm("Edit", "C041HtmlHelper", FormMethod.Post))
+        {
+            @Html.TextBoxFor(c => c.Name, new { style = "color:yellow", @class = "co" }) <br />         @*使用css*@
+            @Html.PasswordFor(c => c.Name)<br />
+            @Html.CheckBoxFor(c => c.Gender) <br />
+            @Html.RadioButtonFor(c => c.Gender, true)
+            @Html.RadioButtonFor(c => c.Gender, false)
+
+            @Html.DropDownListFor(c => c.TypeID, ViewBag.tlist as SelectList)
+            @Html.ValidationMessageFor(c => c.TypeID)
+        }
+    </div>
+</body>
+</html>

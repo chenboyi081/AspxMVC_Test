@@ -1,0 +1,72 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model MVC.Model.ContactInfoView
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+<script src="~/Scripts/jquery.tmpl.min.js"></script>
+
+<script id="tmp" type="text/x-jquery-tmpl">
+    <tr>
+        <td>${ID}</td>
+        <td>${ContactName}</td>
+        <td>${CommonMobile}</td>
+        <td>${GroupName}</td>
+        <td>
+            <a href="@Url.Action("Edit", "cinfo")/${ID}">编辑</a> |
+            @Ajax.ActionLink("删除", "Delete", "cinfo", new AjaxOptions()
+           {
+               Url = Url.Action("Delete", "cinfo") + "/${ID}",
+               Confirm = "确定要删除吗?",
+               HttpMethod = "post",
+               OnSuccess = "sucess"
+           })
+        </td>
+    </tr>
+
+</script>
+
+@section scripts{
+    <script>
+        $(function () {
+            getlist();
+        })
+
+        //负责通过$.post()获取列表数据
+        function getlist() {
+            $.post('@Url.Action("Index", "Cinfo")', null, function (ajaxobj) {
+                //ajaxobj:{status:0,msg:"",datas:[{},{}]}
+                if (ajaxobj.status == "1") {
+                    alert(ajaxobj.msg);
+                } else {
+                    //实现正常逻辑代码
+                    var datas = ajaxobj.datas;//js数组
+                    //将talbe中的数据清空,除了表头
+                    $("#list tr:gt(0)").remove();       //gt(0)jquery索引，>0行
+                    $("#tmp").tmpl(datas).appendTo("#list");//将数据追加到id=list的table的最后
+                }
+            }, "json");
+        }
+
+        function sucess(ajaxobj) {
+            if (ajaxobj.status == "1") //error
+            {
+                alert(ajaxobj.msg);
+            } else {
+                //刷新
+                alert(ajaxobj.msg);
+                getlist();
+            }
+        }
+    </script>
+}
+
+<table class="list" id="list">
+    <tr>
+        <th>@Html.DisplayNameFor(c => c.ID)</th>
+        <th>@Html.DisplayNameFor(c => c.ContactName)</th>
+        <th>@Html.DisplayNameFor(c => c.CommonMobile)</th>
+        <th>@Html.DisplayNameFor(c => c.GroupId)</th>
+        <th></th>
+    </tr>
+</table>

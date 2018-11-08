@@ -5,3 +5,4 @@ C:\Code\MVC体验\Model\bin\Debug\EntityFramework.xml
 C:\Code\MVC体验\Model\bin\Debug\zh-Hans\EntityFramework.resources.dll
 C:\Code\MVC体验\Model\obj\Debug\MVC.Model.dll
 C:\Code\MVC体验\Model\obj\Debug\MVC.Model.pdb
+C:\Code\MVC体验\Model\obj\Debug\Model.csprojResolveAssemblyReference.cache

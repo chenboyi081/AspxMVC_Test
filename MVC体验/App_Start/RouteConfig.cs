@@ -25,6 +25,12 @@ namespace MVC体验
                     id = UrlParameter.Optional //id为可选参数
                 }
             );
+
+            routes.MapRoute(
+            name: "Default1",
+            url: "{controller}/{action}/{id}/{name}",
+            defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional, name = UrlParameter.Optional }
+        );
         }
     }
 }

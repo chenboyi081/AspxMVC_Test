@@ -1,0 +1,78 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <style>
+        .none {
+            display:none;
+        }
+    </style>
+    <script src="~/Scripts/jquery-1.7.1.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+</head>
+<body>
+    <div>
+        //1.0 生成一个ajax请求的a标签 &lt;a href="/C043Ajax/GetTime"&gt;请求服务器时间&lt;/&lt;a&gt;
+        @Ajax.ActionLink("请求服务器时间", "GetTime", "C043Ajax", new AjaxOptions() {
+             Url = Url.Action("GetTime", "C043Ajax"),       //ajax异步对象要请求的url地址
+             Confirm = "confirm('您确定请求吗？')",//表示弹出确认框，当点击ok的时候才发出ajax请求
+             HttpMethod = "Post",
+             InsertionMode = InsertionMode.InsertBefore,//表示后一次服务器响应的结果替换前一次的结果
+             UpdateTargetId = "updatediv",//将服务器响应回来的非json字符串自动插入到id=updatediv的dom元素中  
+             LoadingElementId = "loading", //显示真正加载中的动画效果的dom元素id
+             LoadingElementDuration = 3000//显示动画效果的间隔时间
+            })
+
+        <br />
+        //2.0 利用回调函数执行业务逻辑操作
+        @Ajax.ActionLink("请求服务器时间", "GetTime", "C043Ajax", new AjaxOptions()
+        {
+            Url = Url.Action("GetTime", "C043Ajax"),
+            HttpMethod = "Get",
+            OnBegin = "bein",  //在ajax请求的时候被调用
+            OnSuccess = "sucess", //服务器成功响应以后被调用
+            OnFailure = "fail", //当ajax请求失败的时候被调用
+            OnComplete = "comp"
+        
+        })
+    </div>
+    <div id="updatediv" style="border: 1px solid red;"></div>
+    <div id="loading" class="none">正在加载中......</div>
+
+    <script type="text/javascript">
+        function bein() {
+            //提示正在加载中
+            $("#loading").removeClass("none"); //移除none样式
+            alert("OnBegin====");
+        }
+
+        /*回调函数中的参数
+         1、如果服务器响应回来的是非json格式的字符串，则此参数就是响应报文体中的数据
+         2、如果服务器响应回来的是json格式的字符串,则会自动利用JSON.parse()转换成js对象
+        */
+        function sucess(responseText) {
+            $("#loading").addClass("none");//添加none样式
+
+            alert("OnSuccess====" + responseText.time);
+        }
+
+
+        //当ajax请求失败的时候被调用
+        //错误回调函数的参数就是当前请求的异步对象本身
+        function fail(xhr) {
+            alert("OnFailure====" + xhr.responseText);
+        }
+
+        //回调函数的参数就是当前请求的异步对象本身
+        function comp(xhr) {
+            alert("OnComplete=====" + xhr);
+        }
+    </script>
+</body>
+</html>
