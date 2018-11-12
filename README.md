@@ -122,12 +122,10 @@ MVC基础学习，复习（本教程为MVC4.0）
 ## C05 一、路由规则 二、区域 三、MVC过滤器
 ### C05-图:C05json(),view()的处理区别图解
 ![1](https://www.cnblogs.com/images/cnblogs_com/chenboyi081/1328731/o_01%20-%20json()view()%e7%9a%84%e5%a4%84%e7%90%86%e5%8c%ba%e5%88%ab%e5%9b%be%e8%a7%a3.png)
-### C05-图:C05MVC处理机制图解（简版V1.1)
-![2](https://www.cnblogs.com/images/cnblogs_com/chenboyi081/1328731/t_MVC%e5%a4%84%e7%90%86%e6%9c%ba%e5%88%b6%e5%9b%be%e8%a7%a3%ef%bc%88%e7%ae%80%e7%89%88V1.1).png)
 ### C05-图:C05MVC的过滤器
-![3](https://www.cnblogs.com/images/cnblogs_com/chenboyi081/1328731/o_MVC%e7%9a%84%e8%bf%87%e6%bb%a4%e5%99%a8.png)
+![2](https://www.cnblogs.com/images/cnblogs_com/chenboyi081/1328731/o_MVC%e7%9a%84%e8%bf%87%e6%bb%a4%e5%99%a8.png)
 ### C05-图:C05第7个管道事件中的过滤器方法具体的实现步骤
-![4](https://www.cnblogs.com/images/cnblogs_com/chenboyi081/1328731/o_%e7%ac%ac7%e4%b8%aa%e7%ae%a1%e9%81%93%e4%ba%8b%e4%bb%b6%e4%b8%ad%e7%9a%84%e8%bf%87%e6%bb%a4%e5%99%a8%e6%96%b9%e6%b3%95%e5%85%b7%e4%bd%93%e7%9a%84%e5%ae%9e%e7%8e%b0%e6%ad%a5%e9%aa%a4.png)
+![3](http://images.cnblogs.com/cnblogs_com/chenboyi081/1328731/o_%E7%AC%AC7%E4%B8%AA%E7%AE%A1%E9%81%93%E4%BA%8B%E4%BB%B6%E4%B8%AD%E7%9A%84%E8%BF%87%E6%BB%A4%E5%99%A8%E6%96%B9%E6%B3%95%E5%85%B7%E4%BD%93%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%AD%A5%E9%AA%A4.png)
 ### 一、路由规则
 		1.0、路由规则url的各种定义
  
