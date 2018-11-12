@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")  @*将具体的css以虚拟路径的形式输出到html中同时会压缩css文件*@
+    @RenderSection("css", required: false)
+    <style type="text/css">
+        .left {
+            width: 200px;
+            float: left;
+            border: 1px solid red;
+        }
+
+        .right {
+            width: 550px;
+            float: right;
+            border: 1px solid green;
+        }
+    </style>
+
+</head>
+<body>
+    <div style="width: 800px; margin: 0 auto;">
+        <div class="left">
+            <ul>
+                <li>系统管理</li>
+                <li>系统管理</li>
+                <li>系统管理</li>
+                <li>系统管理</li>
+            </ul>
+
+        </div>
+        <div class="right">
+            @RenderBody()   @* 占位符将来被使用了此母版页的子页中的内容替换，每个母版页中只能出现一次 RenderBody()方法 *@
+
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/jquery")  @*将具体的js以虚拟路径的形式输出到html中, 同时会压缩js文件 *@
+
+    @*required: false 可以被子页重写的区域或不重写都正常，
+        required: true:在子页中必须重写 scripts111
+    *@
+
+    @RenderSection("scripts111", required: false)
+</body>
+</html>

@@ -1,0 +1,5 @@
+C:\Code\MVC体验\Ctrl.Mamager2\obj\Debug\Ctrl.Mamager2.csprojResolveAssemblyReference.cache
+C:\Code\MVC体验\Ctrl.Mamager2\bin\Debug\Ctrl.Mamager2.dll
+C:\Code\MVC体验\Ctrl.Mamager2\bin\Debug\Ctrl.Mamager2.pdb
+C:\Code\MVC体验\Ctrl.Mamager2\obj\Debug\Ctrl.Mamager2.dll
+C:\Code\MVC体验\Ctrl.Mamager2\obj\Debug\Ctrl.Mamager2.pdb

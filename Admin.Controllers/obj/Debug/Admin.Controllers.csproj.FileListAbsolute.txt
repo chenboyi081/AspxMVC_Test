@@ -1,0 +1,5 @@
+C:\Code\MVC体验\Admin.Controllers\obj\Debug\Admin.Controllers.csprojResolveAssemblyReference.cache
+C:\Code\MVC体验\Admin.Controllers\bin\Debug\Admin.Controllers.dll
+C:\Code\MVC体验\Admin.Controllers\bin\Debug\Admin.Controllers.pdb
+C:\Code\MVC体验\Admin.Controllers\obj\Debug\Admin.Controllers.dll
+C:\Code\MVC体验\Admin.Controllers\obj\Debug\Admin.Controllers.pdb

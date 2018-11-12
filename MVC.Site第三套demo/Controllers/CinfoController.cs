@@ -52,5 +52,58 @@ namespace MVC.Site第三套demo.Controllers
         }
 
         #endregion
+
+        #region 3.0 新增
+
+        [HttpGet]
+        public ActionResult Add()
+        {
+            phonebookEntities db = new phonebookEntities();
+            var glist = db.GroupInfoes.ToList();
+            SelectList slist = new SelectList(glist, "GroupId", "GroupName");
+            ViewBag.glist = slist;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Add(ContactInfoView model)
+        {
+            System.Threading.Thread.Sleep(2000);        //实际项目中不能这么做
+            //1.0 验证实体属性的值的合法性
+            if (ModelState.IsValid == false)
+            {
+                //PhoneBookEntities db = new PhoneBookEntities();
+                //var glist = db.GroupInfo.ToList();
+                //SelectList slist = new SelectList(glist, "GroupId", "GroupName");
+                //ViewBag.glist = slist;
+                //return View();
+                return Json(new { status = 1, msg = "实体属性值的合法性验证失败" });
+            }
+
+            //2.0 
+            try
+            {
+                ContactInfo entity = new ContactInfo()
+                {
+                    Account = "1",
+                    ContactId = "1",
+                    CommonMobile = model.CommonMobile,
+                    ContactName = model.ContactName,
+                    GroupId = model.GroupId,
+                    IsDelete = 0
+                };
+
+                phonebookEntities db = new phonebookEntities();
+                db.ContactInfoes.Add(entity); //1、将entity追加到EF容器中， 2、修改状态类的状态为added
+                db.SaveChanges();
+
+                return Json(new { status = 0, msg = "新增成功" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = 1, msg = ex.Message });
+            }
+        }
+        #endregion
     }
 }

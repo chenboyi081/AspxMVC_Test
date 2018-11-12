@@ -1,0 +1,89 @@
+﻿@model MVC.Model.ContactInfoView
+@{
+    ViewBag.Title = "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using MVC.Site第三套demo
+<style type="text/css">
+    #loading {
+        display: none;
+        color: blue;
+        position: absolute;
+        left: 300px;
+        top: 200px;
+        width: 200px;
+        height: 200px;
+    }
+</style>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+@using (Ajax.BeginForm("Add", "Cinfo", new AjaxOptions()
+{
+    Url = Url.Action("Add", "Cinfo"),
+    HttpMethod = "post",
+    OnSuccess = "sucess",
+    OnFailure = "Fail",
+    OnBegin = "begin"
+}))
+{
+    <table class="list">
+        <tr>
+            <th>@Html.DisplayNameFor(c => c.ContactName)</th>
+            <td>
+                @Html.TextBoxFor(c => c.ContactName)
+                @Html.ValidationMessageFor(c => c.ContactName)
+            </td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(c => c.CommonMobile)</th>
+            <td>
+                @Html.TextBoxFor(c => c.CommonMobile)
+                @Html.ValidationMessageFor(c => c.CommonMobile)
+            </td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(c => c.GroupId)</th>
+            <td>
+                @Html.DropDownListFor(c => c.GroupId, ViewBag.glist as SelectList)
+            </td>
+        </tr>
+        <tr>
+            <th></th>
+            <td>
+                @Html.SubmitCreate("提交")            @*使用了自定义的扩展方法*@
+                <input type="button" onclick="window.location='@Url.Action("Index", "cinfo")    '" />
+            </td>
+        </tr>
+
+    </table>
+}
+<div id="loading">正在加载中.......</div>
+
+<script type="text/javascript">
+    function sucess(ajaxobj)
+    {
+        $("#loading").hide();
+
+        if(ajaxobj.status=="1")
+        {
+            alert(ajaxobj.msg);
+        }else{
+            //跳回首页
+            window.location='@Url.Action("Index", "Cinfo")';
+        }
+    }
+
+    //由于后台做了try{}catch()操作，所以不存在500的状态 ,只有404的时候被触发
+    function Fail(xhr)
+    {
+        $("#loading").hide();
+        alert(xhr.responseText);
+    }
+
+    function begin()
+    {
+        //将正在加载中提示面板打开
+        $("#loading").show();
+    }
+</script>

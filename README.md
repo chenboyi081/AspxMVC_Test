@@ -71,9 +71,9 @@ MVC基础学习，复习（本教程为MVC4.0）
 
 ## C04-MVC第二套增删改查(使用HtmlHelper，模型注释)	MVC第二套删查(使用Ajax，jquery【jquery.tmpl.js】),HtmlHelper的使用,Url的使用，Ajax
 ### C04-图:MVC_整体请求流程图完整版
-	![1](http://images.cnblogs.com/cnblogs_com/chenboyi081/1328731/o_01-MVC_%E6%95%B4%E4%BD%93%E8%AF%B7%E6%B1%82%E6%B5%81%E7%A8%8B%E5%9B%BE%E5%AE%8C%E6%95%B4%E7%89%88.png)
+![1](http://images.cnblogs.com/cnblogs_com/chenboyi081/1328731/o_01-MVC_%E6%95%B4%E4%BD%93%E8%AF%B7%E6%B1%82%E6%B5%81%E7%A8%8B%E5%9B%BE%E5%AE%8C%E6%95%B4%E7%89%88.png)
 ### C04-图:MVC中ajax方法的封装以及ajax的写法形式种类
-	![2](http://images.cnblogs.com/cnblogs_com/chenboyi081/1328731/o_03%20-%20MVC%E4%B8%ADajax%E6%96%B9%E6%B3%95%E7%9A%84%E5%B0%81%E8%A3%85%E4%BB%A5%E5%8F%8Aajax%E7%9A%84%E5%86%99%E6%B3%95%E5%BD%A2%E5%BC%8F%E7%A7%8D%E7%B1%BB.png)
+![2](http://images.cnblogs.com/cnblogs_com/chenboyi081/1328731/o_03%20-%20MVC%E4%B8%ADajax%E6%96%B9%E6%B3%95%E7%9A%84%E5%B0%81%E8%A3%85%E4%BB%A5%E5%8F%8Aajax%E7%9A%84%E5%86%99%E6%B3%95%E5%BD%A2%E5%BC%8F%E7%A7%8D%E7%B1%BB.png)
 	
 ### 一、Html中的扩展方法演示
 		//1.0 输出form表单的方式1 (html中的弱类型方法)
@@ -119,3 +119,126 @@ MVC基础学习，复习（本教程为MVC4.0）
 		3、非嵌入式验证脚本的使用
 		4、非嵌入式ajax脚本的使用
 		
+## C05 一、路由规则 二、区域 三、MVC过滤器
+### C05-图:C05json(),view()的处理区别图解
+![1](https://www.cnblogs.com/images/cnblogs_com/chenboyi081/1328731/o_01%20-%20json()view()%e7%9a%84%e5%a4%84%e7%90%86%e5%8c%ba%e5%88%ab%e5%9b%be%e8%a7%a3.png)
+### C05-图:C05MVC处理机制图解（简版V1.1)
+![2](https://www.cnblogs.com/images/cnblogs_com/chenboyi081/1328731/t_MVC%e5%a4%84%e7%90%86%e6%9c%ba%e5%88%b6%e5%9b%be%e8%a7%a3%ef%bc%88%e7%ae%80%e7%89%88V1.1).png)
+### C05-图:C05MVC的过滤器
+![3](https://www.cnblogs.com/images/cnblogs_com/chenboyi081/1328731/o_MVC%e7%9a%84%e8%bf%87%e6%bb%a4%e5%99%a8.png)
+### C05-图:C05第7个管道事件中的过滤器方法具体的实现步骤
+![4](https://www.cnblogs.com/images/cnblogs_com/chenboyi081/1328731/o_%e7%ac%ac7%e4%b8%aa%e7%ae%a1%e9%81%93%e4%ba%8b%e4%bb%b6%e4%b8%ad%e7%9a%84%e8%bf%87%e6%bb%a4%e5%99%a8%e6%96%b9%e6%b3%95%e5%85%b7%e4%bd%93%e7%9a%84%e5%ae%9e%e7%8e%b0%e6%ad%a5%e9%aa%a4.png)
+### 一、路由规则
+		1.0、路由规则url的各种定义
+ 
+		1.1、路由调试dll的使用
+		1、现将RouteDebuger.dll 引用到MVC网站项目中
+		2、将MVC网站的web.config中的<appSetting>节点中添加一个
+		 <!--将路由调试插件打开,true:打开调试器，false：关闭调试器-->
+			 <add key="RouteDebugger:Enabled" value="true" />  true:调试路由  false：关闭调试
+			 
+		2.1、参数的约束 		
+		2.2、命名空间约束
+		在App_Start 文件夹下的RouteConfig.cs类中
+	
+		routes.MapRoute(
+          name: "Default5",
+          url: "itcast/{controller}/{action}/{id}/{name}",
+          defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional, name = UrlParameter.Optional }
+          , constraints: new { id = "\\d+", name = "^a$" } //约束此路由规则的id参数必须是一个数字 ,name必须是一个a， 如果id和name只要有一个不匹配，则路由规则不会匹配成功
+          , namespaces: new string[] { "Ctrl.Mamager2" }//告诉MVC DefaultControllerFactory 去指定的命名空间中查找控制器类，并且获取其Type类型后创建其对象实例存入上下文的ramaphander中
+            );
+### 二、区域
+	区域重要类：必须继承AreaRegistration
+	ReportsAreaRegistration类的命名空间必须和所有的控制器类的命名空间保持一致
+     作用：1、负责注册此区域的区域路由规则
+           2、标示视图引擎查找视图的对应文件夹
+	1、MVC中所有的区域都是存在 Areas文件夹下的
+	2、一个MVC网站的区域路由规则是先与网站路由规则注册中，是因为在Global.asax Application_Start()中代码的执行顺序决定
+	不推荐修改其中的代码的执行顺序，不然有可能出现匹配路由规则紊乱
+	3、区域views和网站跟目录下的views文件夹下的web.config的作用是用来表示当前视图继承的父类是webviewpage<tmodel> 如果删除
+	web.config 以后将无法找到.cshtml编译后的父类而报错
+
+	4、每个区域Views文件夹的作用：
+		1、存放当前区域的所有视图页面
+		2、可以存放_viewstart.cshtml页面
+
+	5、每个区域Views下的Share文件夹的作用：
+		1、可以存放当前区域的布局页_layout.cshtlm
+		
+	6、将区域中的控制器单独存放到某个类库中进行管理
+		注意点：1、除了将路由规则类提取到此类库中外还要将AreaRegistration 的子类提取过去
+		2、要保证控制器类的命名空间与AreaRegistration 的子类 保持一致
+		
+###	三、MVC过滤器	
+	  1、ActionFilterAttribute
+		定义：方法过滤器
+		过滤器的创建步骤：
+		1、定义一个类继承ActionFilterAttribute 重写里面的四个方法
+		OnActionExecuting（）
+		OnActionExecuted（）
+		OnResultExecuting（）
+		OnResultExecuted（）
+
+		2、如何将自定义过滤器注册成全局过滤器
+		在app_start 文件夹中的类 FilterConfig的你RegisterGlobalFilters（）方法中编写如下代码：
+		 /*注册自定义的actionFilterCust 为全局过滤器
+		     * 作用:当前mvc站点中有所action在执行之前，之后，结果返回之前，之后都会
+		     * 触发actionFilterCust中的相应方法
+		    */
+		    filters.Add(new actionFilterCust());
+
+		 3、如何将过滤器应用到某个actio上?
+		  3.1、在方法上贴上   [actionFilterCust]
+		 [actionFilterCust]
+		public ActionResult Add(int id)
+		{
+		    //System.IO.File.WriteAllText(Server.MapPath("/log.txt"), id.ToString());
+		    Response.Write("你好，北京");
+		    return View();
+		}
+		
+		3.2 在控制器类上贴上   [actionFilterCust]
+		  [actionFilterCust]
+			 public class HomeController : Controller
+
+
+	4、actionexecuting()方法中的相关参数演示
+	 /// <summary>
+        /// 在action方法执行之前被触发
+        /// </summary>
+        /// <param name="filterContext"></param>
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            // HttpContext.Current.Response.Write("方法执行之前输出的内容-OnActionExecuting()");
+            filterContext.HttpContext.Response.Write("方法执行之前输出的内容-OnActionExecuting()<br / >");
+
+            //1.0 获取当前OnActionExecuting被触发的时候是调用了哪个action，将其名字取出
+            string actionname = filterContext.ActionDescriptor.ActionName;
+            filterContext.HttpContext.Response.Write("action名字=" + actionname + "<br />");
+
+            //2.0 获取当前action所在的控制器名称
+            string controllerName = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;
+            filterContext.HttpContext.Response.Write("控制器名字=" + controllerName + "<br />");
+
+            //3.0 获取当前action方法上贴有哪些特性标签
+            object[] attrArr = filterContext.ActionDescriptor.GetCustomAttributes(false);
+            //判断当前action上是否贴有[skipLoginAttribute]的特性标签
+            object[] skploginArr = filterContext.ActionDescriptor.GetCustomAttributes(typeof(skipLoginAttribute), false);
+
+            //4.0 判断当前action所在的控制器类是否贴有skipLoginAttribute特性标签
+            object[] ctlArr = filterContext.ActionDescriptor.ControllerDescriptor.GetCustomAttributes(typeof(skipLoginAttribute), false);
+
+            //手动在此处修改当前action的返回视图,将来可以用作统一登录验证，如果没有登录则跳转到登录页面
+            ViewResult addview = new ViewResult();
+            addview.ViewName = "add";
+            //addview.ViewName = "~/Views/Home/add.cshtml";
+            filterContext.Result = addview;
+            
+            base.OnActionExecuting(filterContext);
+        }
+
+			
+			
+			
+			
