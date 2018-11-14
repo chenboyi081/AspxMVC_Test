@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using MVC.Site第二套demo.Filters;
+using System.Web;
 using System.Web.Mvc;
 
 namespace MVC.Site第二套demo
@@ -8,6 +9,7 @@ namespace MVC.Site第二套demo
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
+            filters.Add(new LoginCheckAttribute());
         }
     }
 }

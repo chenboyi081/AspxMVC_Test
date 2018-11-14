@@ -13,7 +13,7 @@ namespace MVCFilter
             //将自定义类ActionFilterCust 注册成了全局过滤器(截获此网站中所有action的执行，AOP：面向切面编程)
             filters.Add(new ActionFilterCust());
             filters.Add(new AuthorFilter());
-            //filters.Add(new ExceptionFilter());
+            filters.Add(new ExceptionFilter());
         }
     }
 }

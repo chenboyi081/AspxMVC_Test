@@ -1,0 +1,56 @@
+﻿@model MVC.Model.ModelViews.LoginInfo
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+
+<h2>Login</h2>
+@using (Html.BeginForm("Login", "Login", FormMethod.Post))
+{
+    <table class="list">
+        <tr>
+            <th>@Html.DisplayNameFor(c => c.LoginName)</th>
+            <td>
+                @Html.TextBoxFor(c => c.LoginName)
+            @Html.ValidationMessageFor(c => c.LoginName)
+        </td>
+    </tr>
+    <tr>
+        <th>@Html.DisplayNameFor(c => c.LoginPwd)</th>
+        <td>
+            @Html.PasswordFor(c => c.LoginPwd)
+        @Html.ValidationMessageFor(c => c.LoginPwd)
+    </td>
+</tr>
+<tr>
+    <th>@Html.DisplayNameFor(c => c.Vcode)</th>
+    <td>
+        <img src="@Url.Action("Vcode", "Vcode")" id="imgvcode" height="25" width="65" />
+        @Html.TextBoxFor(c => c.Vcode)
+        @Html.ValidationMessageFor(c => c.Vcode)
+    </td>
+</tr>
+<tr>
+    <th></th>
+    <td>
+        <input type="submit" value="登录" />
+    </td>
+</tr>
+<tr>
+    <th></th>
+    <td>
+        @Html.ValidationSummary(true)
+    </td>
+</tr>
+</table>
+}
+<script type="text/javascript">
+    $(function () {
+        $("#imgvcode").click(function () {
+            this.src = '@Url.Action("Vcode", "Vcode")';
+        })
+    })
+</script>

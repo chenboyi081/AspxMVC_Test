@@ -25,3 +25,4 @@ C:\Code\MVC体验\MVCFilter\bin\zh-Hans\System.Web.WebPages.Deployment.resources
 C:\Code\MVC体验\MVCFilter\bin\zh-Hans\System.Web.WebPages.Razor.resources.dll
 C:\Code\MVC体验\MVCFilter\obj\Debug\MVCFilter.dll
 C:\Code\MVC体验\MVCFilter\obj\Debug\MVCFilter.pdb
+C:\Code\MVC体验\MVCFilter\obj\Debug\MVCFilter.csprojResolveAssemblyReference.cache

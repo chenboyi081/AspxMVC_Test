@@ -237,6 +237,175 @@ MVC基础学习，复习（本教程为MVC4.0）
         }
 
 			
+## C06  一、利用action过滤器实现MVC站点的统一登录验证（在第二套增删改查中实现） 二、MVC中 webapi的使用 和 在其他网站中如何来调用（MVC）	三、重写defulatControllerFactoty ,和 RazorViewEnginee 来实现MVC的插件式开发		
+### C06-图:在一个网站中请求webapi的代码写法
+![1](https://www.cnblogs.com/images/cnblogs_com/chenboyi081/1328731/o_%e5%9c%a8%e4%b8%80%e4%b8%aa%e7%bd%91%e7%ab%99%e4%b8%ad%e8%af%b7%e6%b1%82webapi%e7%9a%84%e4%bb%a3%e7%a0%81%e5%86%99%e6%b3%95.png)
+### C06-图:C06MVC处理机制的默认控制器工厂和视图引擎的详细解析
+![2](https://www.cnblogs.com/images/cnblogs_com/chenboyi081/1328731/o_MVC%e5%a4%84%e7%90%86%e6%9c%ba%e5%88%b6%e7%9a%84%e9%bb%98%e8%ae%a4%e6%8e%a7%e5%88%b6%e5%99%a8%e5%b7%a5%e5%8e%82%e5%92%8c%e8%a7%86%e5%9b%be%e5%bc%95%e6%93%8e%e7%9a%84%e8%af%a6%e7%bb%86%e8%a7%a3%e6%9e%90.png)
+
+### 一、登录验证：
+	1、统一登录验证是写在OnActionExecuting()方法中
+	2、当session为null的时候返回登录视图的两种写法
+		2.1、
+		filterContext.HttpContext.Response.Redirect("/Login/Login"); 
+		//缺点：浏览器会提心出现“此网页包含重定向循环”提醒后看不到正常的页面
+
+		2.2、为了解决上面弄2.1的缺点，改成指定返回的视图
+		   ViewResult view = new ViewResult();
+                view.ViewName = "/Views/Login/Login.cshtml";
+                filterContext.Result = view;
+		引发另外一个缺点：不会将url路径修改成/Login/Login还是保持原有的/Home/index
+		将来在登录按钮被点击的时候，还是提交到了/Home/Index 如何解决：
+		在 login.cshtml 中的使用 @Html.BeginForm()的时候指定提交的控制器和action方法即可
+	3、将统一登录过滤器注册成全局的过滤器，引发了缺点：
+	如果使用的是filterContext.HttpContext.Response.Redirect("/Login/Login");  ，出现出现“此网页包含重定向循环”提醒后看不到正常的页面
+	如何解决：
+	在loingController上打上自定义的特性标签[skipchecklogin] 在OnActionExecuting() 统一进行判断	
+	
+### 二、webapi简单使用以及调用（网络爬虫初步实现以及静态页面）：
+1、webapi的路由规则注册在App_Start\WebApiConfig.cs文件中
+	2、webapi控制器继承父类 apiController
+	3、调用webapi的方式：
+		get请求http://localhost/api/home/1 则默认请求 Home控制器下的Get方法将1作为get（）方法的参数
+		Post请求http://localhost/api/home/1 则默认请求 Home控制器下的Post方法将1作为Post（）方法的参数
+	4、将webapi默认的返回格式设置成json格式写法
+		 public static class WebApiConfig
+		{
+        public static void Register(HttpConfiguration config)
+        {
+            //将webapi中的XmlFormatter 移除，默认就是以JsonFormatter作为其传输格式
+            config.Formatters.Remove(config.Formatters.XmlFormatter);
+		}
+		
+	4、在另外一个网站请求使用httpwebrequest 请求webapi示例：
+		 //模拟浏览器请求http://localhost:55749/api/values/GetPig 传入指定的id参数值
+         string requestUrl = "http://localhost:15405/infos.ashx?id=" + txtid.Text;
+		//1.0 实例化web请求对象的实例
+		WebRequest request = WebRequest.Create(requestUrl);
+		//2.0 设置其请求方式为get请求
+		request.Method = "get";
+		//3.0 获取服务器响应回来的响应报文对象
+		WebResponse response = request.GetResponse();
+		System.IO.Stream str = response.GetResponseStream();
+
+		//将流转换成字符串
+		string responsebody = "";
+		using (System.IO.StreamReader srd = new System.IO.StreamReader(str))
+		{
+			//将响应报文体中的数据转换成字符串
+			responsebody=srd.ReadToEnd();
+		}
+
+		Response.Write(responsebody);
+### 三、重写defulatControllerFactoty ,和 RazorViewEnginee 来实现MVC的插件式开发
+		2.1、将控制器提取到插件项目中实现步骤
+		2.1.1、定义一个类继承DefaultControllerFactory ，重写里面的方法GetControllerType
+		 protected override Type GetControllerType(System.Web.Routing.RequestContext requestContext, string controllerName)
+     
+	 例子：
+	  public class PluginControllerFactory : DefaultControllerFactory
+    {
+        protected override Type GetControllerType(System.Web.Routing.RequestContext requestContext, string controllerName)
+        {
+            Type controllerType = null;
+            //1.0 当浏览器发出一个url请求的时候，在管道事件第7个上会触发控制器创建动作，一定触发工厂中GetControllerType方法
+            //所以，在此处就先从网站主站的Plugins文件夹 通过反射创建一个当前请求控制器的 Type ,如果没有找到，则一定会返回null
+            //那么此时就调用base.GetControllerType(requestContext, controllerName); 从当前网站的bin目录下查找
+
+            //1.0 获取当前网站的运行目录
+            string phyPath = AppDomain.CurrentDomain.BaseDirectory;
+            //2.0 获取当前网站的插件目录
+            string plugsPahyPath = phyPath + "Plugins";
+
+            //3.0 将传入的controllerName 加上固定后缀"Controller"
+            string pullName = controllerName + "Controller";
+
+            //4.0 通过程序集中的GetType()方法获取当前控制器的Type对象
+            //4.0.1 获取Plugins 下面的所有后缀名为 .dll的程序集路径
+            string[] dllfilePhyPaths = System.IO.Directory.GetFiles(plugsPahyPath, "*.dll", System.IO.SearchOption.AllDirectories);
+
+            //5.0 遍历dll的物理路径将dll加载的Assembly 中
+            if (dllfilePhyPaths != null && dllfilePhyPaths.Length > 0)
+            {
+                foreach (var dllfilephyPath in dllfilePhyPaths)
+                {
+                    //5.0.1 根据dll的物理路径将dll加载到dllass中
+                    Assembly dllass = Assembly.LoadFile(dllfilephyPath);
+                    controllerType = dllass.GetType("MVC.Plugs.Controllers." + pullName);
+                    if (controllerType != null)
+                    {
+                        break;
+                    }
+                }
+            }
+
+            if (controllerType != null)
+            {
+                return controllerType;
+            }
+
+            return base.GetControllerType(requestContext, controllerName);
+        }
+    }
+	
+	2.1.2、在MVC主网站跟目录下定义一个 Plugins文件夹，将插件中生成的dll拷贝到其中
+	2.1.3、在mvc主网站的Global.asax中的  Application_Start() 方法中加入如下代码：
+		将MVC控制器类的创建行为动作交给自己定义好的PluginControllerFactory 工厂
+        ControllerBuilder.Current.SetControllerFactory(new PluginControllerFactory());
+		
+	2.2、将视图提取到插件项目中实现步骤
+	 1、
+	 public class PluginsRazorViewEngine : RazorViewEngine
+	 {
+        /// <summary>
+        /// 自己定义 视图引擎查找视图的路径
+        /// </summary>
+        private string[] ViewLocationFormats ={
+                            "~/Plugins/Order/Views/{1}/{0}.cshtml",
+                           "~/Plugins/Order/Views/Shared/{1}/{0}.cshtml",
+                           "~/Views/{1}/{0}.cshtml",
+                           "~/Views/Shared/{1}/{0}.cshtml",
+                                              };
+
+        public override ViewEngineResult FindView(ControllerContext controllerContext, string viewName, string masterName, bool useCache)
+        {
+            //1.0 将父类RazorViewEngine中的ViewLocationFormats设置成本类定义的路径
+            base.ViewLocationFormats = this.ViewLocationFormats;
+
+            //2.0 重写视图引擎将 视图编译成前台页面类的方法
+            RazorBuildProvider.CodeGenerationStarted += RazorBuildProvider_CodeGenerationStarted;
+
+
+            return base.FindView(controllerContext, viewName, masterName, useCache);
+        }
+
+        void RazorBuildProvider_CodeGenerationStarted(object sender, EventArgs e)
+        {
+            RazorBuildProvider provider = sender as RazorBuildProvider;
+            //将哪个程序集编译到当前视图引用中
+            //1.0 获取当前网站的运行目录
+            string phyPath = AppDomain.CurrentDomain.BaseDirectory;
+            //2.0 获取当前网站的插件目录
+            string plugsPahyPath = phyPath + "Plugins";
+
+            //4.0 通过程序集中的GetType()方法获取当前控制器的Type对象
+            //4.0.1 获取Plugins 下面的所有后缀名为 .dll的程序集路径
+            string[] dllfilePhyPaths = System.IO.Directory.GetFiles(plugsPahyPath, "MVC.Plugs.dll", System.IO.SearchOption.AllDirectories);
+
+            string mvcplugsdllPath = dllfilePhyPaths[0];
+
+            Assembly ass = Assembly.LoadFile(mvcplugsdllPath);
+
+            //5.0 将ass 添加为视图前台页面类的引用程序集
+            provider.AssemblyBuilder.AddAssemblyReference(ass);
+
+        }
+	 
+	2、在mvc主网站的Global.asax中的  Application_Start() 方法中加入如下代码：
+	 //移除当前MVC主站点中的所有视图引擎
+            ViewEngines.Engines.Clear();
+            //将自己定义好的引擎添加到MVC中
+            ViewEngines.Engines.Add(new PluginsRazorViewEngine());
 			
 			
 			

@@ -1,0 +1,6 @@
+C:\Code\MVC体验\C062CallAPI\bin\C062CallAPI.dll.config
+C:\Code\MVC体验\C062CallAPI\bin\C062CallAPI.dll
+C:\Code\MVC体验\C062CallAPI\bin\C062CallAPI.pdb
+C:\Code\MVC体验\C062CallAPI\obj\Debug\C062CallAPI.csprojResolveAssemblyReference.cache
+C:\Code\MVC体验\C062CallAPI\obj\Debug\C062CallAPI.dll
+C:\Code\MVC体验\C062CallAPI\obj\Debug\C062CallAPI.pdb

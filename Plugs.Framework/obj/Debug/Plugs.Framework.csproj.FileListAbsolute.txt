@@ -1,0 +1,5 @@
+C:\Code\MVC体验\Plugs.Framework\obj\Debug\Plugs.Framework.csprojResolveAssemblyReference.cache
+C:\Code\MVC体验\Plugs.Framework\bin\Debug\Plugs.Framework.dll
+C:\Code\MVC体验\Plugs.Framework\bin\Debug\Plugs.Framework.pdb
+C:\Code\MVC体验\Plugs.Framework\obj\Debug\Plugs.Framework.dll
+C:\Code\MVC体验\Plugs.Framework\obj\Debug\Plugs.Framework.pdb

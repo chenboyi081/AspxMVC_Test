@@ -54,6 +54,7 @@
     </Compile>
     <Compile Include="ModelViews\ContactInfo.cs" />
     <Compile Include="ModelViews\GroupInfo.cs" />
+    <Compile Include="ModelViews\LoginInfo.cs" />
     <Compile Include="PhoneBook.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
