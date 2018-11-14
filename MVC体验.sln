@@ -37,11 +37,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C062CallAPI", "C062CallAPI\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "C063MVC插件形式开发", "C063MVC插件形式开发", "{44369519-33E7-4BBF-AE20-DC057A7EBB78}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugs.MVC.Order", "Plugs.MVC.Order\Plugs.MVC.Order.csproj", "{827A22F1-BD1D-429A-B631-73F2700E4544}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C063Plugs.MVC.Order", "Plugs.MVC.Order\C063Plugs.MVC.Order.csproj", "{827A22F1-BD1D-429A-B631-73F2700E4544}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVC.Main", "MVC.Main\MVC.Main.csproj", "{534C9DF6-31CC-423B-8A65-17A1B9AC0BF7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C063MVC.Main", "MVC.Main\C063MVC.Main.csproj", "{534C9DF6-31CC-423B-8A65-17A1B9AC0BF7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugs.Framework", "Plugs.Framework\Plugs.Framework.csproj", "{6A42FA1A-42C7-4BB0-9DE8-C6721F98AFEC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C063Plugs.Framework", "Plugs.Framework\C063Plugs.Framework.csproj", "{6A42FA1A-42C7-4BB0-9DE8-C6721F98AFEC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
