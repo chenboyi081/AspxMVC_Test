@@ -263,7 +263,7 @@ MVC基础学习，复习（本教程为MVC4.0）
 	在loingController上打上自定义的特性标签[skipchecklogin] 在OnActionExecuting() 统一进行判断	
 	
 ### 二、webapi简单使用以及调用（网络爬虫初步实现以及静态页面）：
-1、webapi的路由规则注册在App_Start\WebApiConfig.cs文件中
+	1、webapi的路由规则注册在App_Start\WebApiConfig.cs文件中
 	2、webapi控制器继承父类 apiController
 	3、调用webapi的方式：
 		get请求http://localhost/api/home/1 则默认请求 Home控制器下的Get方法将1作为get（）方法的参数
@@ -407,5 +407,158 @@ MVC基础学习，复习（本教程为MVC4.0）
             //将自己定义好的引擎添加到MVC中
             ViewEngines.Engines.Add(new PluginsRazorViewEngine());
 			
+## C07 	网站性能优化以及分布式网站（参考PPT:[服务器架构及memcached部署中一致性Hash的应用]）
+### C07-图：服务器的划分
+![1](https://www.cnblogs.com/images/cnblogs_com/chenboyi081/1328731/o_%e6%9c%8d%e5%8a%a1%e5%99%a8%e7%9a%84%e5%88%92%e5%88%86%20.png)
+### C07-图：web服务器的负载均衡优化
+![2](https://www.cnblogs.com/images/cnblogs_com/chenboyi081/1328731/o_web%e6%9c%8d%e5%8a%a1%e5%99%a8%e7%9a%84%e8%b4%9f%e8%bd%bd%e5%9d%87%e8%a1%a1%e4%bc%98%e5%8c%96.png) 
+### C07-图：网站前端优化
+![3](https://www.cnblogs.com/images/cnblogs_com/chenboyi081/1328731/o_%e7%bd%91%e7%ab%99%e5%89%8d%e7%ab%af%e4%bc%98%e5%8c%96.png)
+### C07-图：聚集索引和非聚集索引 & 分表算法（求余法）
+![4](https://www.cnblogs.com/images/cnblogs_com/chenboyi081/1328731/o_%e8%81%9a%e9%9b%86%e7%b4%a2%e5%bc%95%e5%92%8c%e9%9d%9e%e8%81%9a%e9%9b%86%e7%b4%a2%e5%bc%95%20_%20%e5%88%86%e8%a1%a8%e7%ae%97%e6%b3%95%ef%bc%88%e6%b1%82%e4%bd%99%e6%b3%95%ef%bc%89.png)
+### C07-图：分表法之（路由表（索引表）法）
+![5](https://www.cnblogs.com/images/cnblogs_com/chenboyi081/1328731/o_%e5%88%86%e8%a1%a8%e6%b3%95%e4%b9%8b%ef%bc%88%e8%b7%af%e7%94%b1%e8%a1%a8%ef%bc%88%e7%b4%a2%e5%bc%95%e8%a1%a8%ef%bc%89%e6%b3%95%ef%bc%89.png)
+### C07-图：db的主从分离（读写分离）
+![6](https://www.cnblogs.com/images/cnblogs_com/chenboyi081/1328731/o_db%e7%9a%84%e4%b8%bb%e4%bb%8e%e5%88%86%e7%a6%bb(%e8%af%bb%e5%86%99%e5%88%86%e7%a6%bb).png)
+### C07-图：关系型db和nosqldb的图解
+![7](https://www.cnblogs.com/images/cnblogs_com/chenboyi081/1328731/o_%e5%85%b3%e7%b3%bb%e5%9e%8bdb%e5%92%8cnosqldb%e7%9a%84%e5%9b%be%e8%a7%a3.png)
+### C07-图：C07知识点的总体总结
+![8](https://www.cnblogs.com/images/cnblogs_com/chenboyi081/1328731/o_%e7%9f%a5%e8%af%86%e7%82%b9%e7%9a%84%e6%80%bb%e4%bd%93%e6%80%bb%e7%bb%93.png)		
 			
+	网站分类：1、企业管理系统  ，CRM，OA，ERP，进销存,企业内部使用的系统
+		2、互联网站点，在线商城，在线交友，论坛，CMS（内容管理系统），有更高的访问量
+		PV：page view 页面浏览量，每天的页面浏览量
+		
+	分布式系统开发：
+		1、基础功能（业务的CRUD）还是会使用asp.net的基础知识来进行开发
+		2、利用外面开源或者商业的或者自己开发的软件来进行多台服务器共同支撑同一个站点的解决方案
+	
+	Http和https
+	
+	https：通讯方式，公钥和私钥，作用：会将请求数据加密以后才在网络上传输
+
+### 自购服务器解决的问题：
+	1、带宽独享
+	2、性能更加优越
+	ps：自购网站需要机房托管，以及域名解析(www.dnspod)等
+
+
+
+### 1、网站的集群：使用多台服务器来支撑当前业务的处理，比如登录这一功能可以用10台服务器来支撑
+### 2、负载均衡有两种方式：
+	1、通过DNS的解析来做，但是不能做到真正的均衡
+	2、引入一台代理服务器(linux+nginx)，实现真正的负载均衡
+
+-----------------------优化站点------------------
+### 3、优化HTTP请求，减少请求次数
+	3.1、通过合并多张小图到一张大图中，利用css定位来查找不同的小图,能够减少http的请求
+	3.2、尽量将同一个逻辑的css代码和js代码放到同一个文件中，这样也能够减少http的请求
+	3.3、可以将图片和js，css等静态资源文件通过CDN缓存来减少HTTP的请求
+		CDN:安全宝可以免费使用
+		1、可以将网站的 静态资源缓存，根据请求的ip地址获取最近 的一台CDN节点将资源返回给用户
+		2、可以帮助抵御大量请求攻击 DDos攻击，网宿科技 可以抵御30g的DDos攻击		
+	
+	热切换
+	
+### 4、优化每一次http请求资源的大小
+	4.1、IIS会默认开启GZip的静态资源压缩
+	4.2、尽量在不失真的情况下优化图片资源（减少图片的大小,firework可以实现）
+	4.3、尽量在网站发布以后使用压缩以后的js和css文件
+
+	
+### 5、前台页面缓存
+	指令集:<%@outputcache Durion = "10" %>  前台页面的本质：服务器设置last-modified和exprise 的时间 ，浏览器请求的时候会将last-modified
+	的时间通过If-Modifiec-Since 发送给服务器
+
+### 6、数据的缓存
+	6.1、数据库缓存依赖
+	6.2、文件缓存依赖
+	6.3、绝对过期时间使缓存失效
+	6.4、相对过期时间使缓存失效
+
+ -----------------------优化站点------------------	
+	
+### 7、CDN是什么
+	4.1、CDN俗称网站加速
+	4.2、公司一般是购买其他cdn服务商提供的服务
+	4.3、CDN一般是用来缓存网站的静态资源文件的（css,js,图片,html,htm）,浏览器获取某个静态资源是按照就近原则
+	4.4、所谓就近原则：DNS服务器通过浏览器发送过来socket链接，就可以获取到当前浏览器的IP地址，根据IP就可以获取当前浏览器所在的城市
+	CDN就会根据IP地址所对应的城市获取其最近的CDN服务器节点
+	4.5、当web站点中的静态资源有更新的时候，CDN应该也要更新它的缓存，这个操作 叫做 “回源”
+	
+### 8、增加一台web服务器后引发的问题和解决方案
+	8.1、利用nginx做负载均衡
+		注意：nginx在windows下面仅仅只能用于演示，不能提供真正的服务，因为nginx在window上有http请求限制当达到它设置的阀值时就不会再处理其他的http请求了
+		所以nginx一定要放到linux下面运行,才能够发挥它真正的性能（linux下的epoll模式，windows下是用的是多线程模式，以消息驱动的）
+		
+	热切换
+	
+### 9、nginx有两个功能：
+	9.1、用作反向代理实现负载均衡
+	9.2、可以通过扩展安装缓存模块来是实现网站静态资源的缓存（squid 也可以实现网站静态资源的缓存）
+	Nginx +  squid -->对于静态资源的缓存可以使用更加廉价的CDN来实现，可以利用云服务器来存储你的静态资源
+	nginx在linux下的命令：
+	nginx start
+	nginx stop
+	nginx restart      --重启，当运行这个命令对nginx进行重启时，所有用户不能访问
+	nginx force_reload --平滑重启 当运行这个命令对nginx进行重启时，所有用户照常访问	
+	注意点：1、nginx不能放到中文目录
+			2、检查nginx的配置文件中监听端口是否被别的软件占用了
+			
+	
+### 10、机械硬盘 < 固态硬盘 < 硬盘磁带 
+	磁盘阵列，Rd1  -- Rd6
+	
+### 11、分库后的不同数据库中的表访问方式可以通过 同义词 来做别名
+	CREATE SYNONYM  --创建同义词的关键字
+	[dbo].[TestBTbA]  --同义词名称，在select语句的from后面直接被使用
+	FOR [TestB].[dbo].[TbA]  --当前同义词所映射的其他数据中的表
+
+### 12、如果两个数据库分别存放在不同的物理机器上，那么他们之间通过普通的同义词就不能够互相访问了，
+
+	sqlserver2005:链接服务器 ，sqlserver2000没有链接服务器
+	slqserver2008以上：
+	
+	这时必须要在创建同义词的时候指定 链接服务器名称
+	如何在一个数据库中建立 另外一个数据服务器的 链接服务器 ？
+		可以通过系统存储过程 sp_addlinkedserver 来添加其他数据库服务器的链接服务器
+		例如：exec sp_addlinkedserver   '链接服务器的别名', '', 'SQLOLEDB', '192.168.10.2,1433'
+		这个时候创建同义词的方式为：
+		CREATE SYNONYM  --创建同义词的关键字
+		[dbo].[TestBTbA]  --同义词名称，在select语句的from后面直接被使用
+		FOR [链接服务器的别名].[TestB].[dbo].[TbA]  --当前同义词所映射的其他数据中的表
+	
+### 13、数据库的主从分离主要目的是用来减少磁盘读和写的竞争，主从之间的数据同步是通过主数据开启一个本地发布，从数据库开启一个本地订阅
+
+###14、磁盘IO的竞争
+	调度器（企业总线） 
+	c# 开源项目;Shuttle（飞梭） ,基于windows消息队列(MSMQ)
+
+
+### *总结：
+1、网站前端优化
+	1.1、减少http请求 （合并css，js文件，cdn做静态资源缓存）
+	1.2、减少http请求的传输量  （压缩js，css，图片）
+	
+2、将iis最大处理进程由1变<=5的一个数 （web园）
+3、将web服务器扩充到2台以上
+		问题：
+		通过进程外session来解决session共享的问题
+		通过使用redis或者memcached缓存软件来统一管理缓存数据
+		通过文件服务器统一管理用户上传到服务器的附件
+		使用nginx做负载均衡
+		
+4、将业务逻辑分离成不同的业务子站点，发布到不同的应用服务器上运行
+5、分表（求余法，路由表），分库，主从（读写）分离
+	分库以后，各业务数据库可以通过【链接服务器】 和【同义词】来进行通讯
+	
+6、使用nosql来存储事务不强的数据
+7、一致性hash算法
+
+网站优化：
+回答要点
+1、网站前端优化
+2、数据缓存（缓存失效策略，数据库依赖缓存（只属于sqlserver））（分布式缓存，redis，memcached 之间的优缺点）
+3、分库，分表策略
+4、主从分离
 			
